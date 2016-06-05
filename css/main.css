@@ -910,7 +910,7 @@ pre .javascript .function {
   line-height: 36px;
   font-size: 40px;
   font-weight: normal;
-  font-family: 'Tangerine', 'Monda Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Amatic SC', 'Monda Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 .site-subtitle {
   margin-top: 10px;
@@ -1548,7 +1548,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #cb5200;
+  background: #cdb0e4;
 }
 .links-of-blogroll {
   font-size: 13px;
