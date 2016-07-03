@@ -261,8 +261,192 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/03/bullet/" itemprop="url">
+                  写了一个HTML5弹幕播放器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-03T13:34:41+08:00" content="2016-07-03">
+              2016-07-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Coding/" itemprop="url" rel="index">
+                    <span itemprop="name">Coding</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/03/bullet/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/03/bullet/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>讲真，我都不好意思写出来，回过头来看看写的真的非常糟糕。<br>分别用了DOM方法和CANVAS来实现，DEMO里那个版本用了CANVAS。<br>测试之类的也都没有好好做过，总之就那么写了出来 ，大体来看是没有什么BUG的，兼容性的话，似乎IOS不行。<br>总之改进的余地还有很多 ，慢慢来吧。<br>demo里使用了野狗的云后台来实现弹幕储存，感觉是非常不错的产品，之后有机会的话深入使用看看。</p>
+<h1 id="Bullet-Player"><a href="#Bullet-Player" class="headerlink" title="Bullet Player"></a>Bullet Player</h1><p>一个使用原生JS编写的HTML5弹幕播放器</p>
+<p><a href="http://gundam1993.github.io/BulletPlayer/demo/" target="_blank" rel="external">Demo</a></p>
+<h2 id="Usage-使用方法"><a href="#Usage-使用方法" class="headerlink" title="Usage 使用方法"></a>Usage 使用方法</h2><ol>
+<li><p>包含bulletPlayer.min.css和bulletPlayer.canvas.min.css（使用canvas元素实现弹幕）或bulletPlayer.min.css和bulletPlayer.dom.min.css(使用dom方法实现弹幕)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./css/bulletPlayer.min.css"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./js/bulletPlayer.canvas.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义一个div容器，并指定id。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"player"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用div容器的id构造播放器对象,注意输入的ID需要使用CSS选择器写法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> BulletPlayer(<span class="string">"#player"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用初始化函数初始化类库，并传入初始化参数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">obj.setVideo(<span class="string">""</span>, <span class="string">""</span>,&#123;</span><br><span class="line">        volume : <span class="number">0.7</span></span><br><span class="line">    &#125;;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>第一个参数为一个字符串，传入视频的地址。</li>
+<li>第二个参数为一个字符串，传入视频封面图的地址。</li>
+<li>第三个参数为一个对象，用于配置类库。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">配置项</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">可选项</th>
+<th style="text-align:center">含义</th>
+<th style="text-align:center">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">volume</td>
+<td style="text-align:center">初始音量</td>
+<td style="text-align:center">0&gt;<br>Number<br>&lt;1</td>
+<td style="text-align:center">音量值</td>
+<td style="text-align:center">0.5</td>
+</tr>
+<tr>
+<td style="text-align:center">bulletState</td>
+<td style="text-align:center">是否启用弹幕</td>
+<td style="text-align:center">true<br>false</td>
+<td style="text-align:center">启用弹幕<br>禁止弹幕</td>
+<td style="text-align:center">true</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>关于后端<br>DEMO中使用了野狗®的晕后台来实现弹幕储存，后端接口暂时没有完成</li>
+</ol>
+<h2 id="Todo"><a href="#Todo" class="headerlink" title="Todo"></a>Todo</h2><ul>
+<li><p>后端接口</p>
+</li>
+<li><p>记录播放位置 记录透明度</p>
+</li>
+<li><p>icon 动画</p>
+</li>
+<li><p>字体</p>
+</li>
+<li><p>高级弹幕</p>
+</li>
+</ul>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p><a href="https://opensource.org/licenses/MIT" target="_blank" rel="external">MIT</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/05/A/" itemprop="url">
-                  终于写了自己的第一个类库
+                  终于写了自己的第一个库
                 </a>
               
             
@@ -490,7 +674,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
